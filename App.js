@@ -8,9 +8,10 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {Platform, StyleSheet, View } from 'react-native';
 
-import ListItem from './src/components/ListItem/ListItem.js';
+import PlaceInput from './src/components/PlaceInput/PlaceInput';
+import PlaceList from './src/components/PlaceList/PlaceList';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,8 +20,7 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   // render() {
   //   return (
   //     <View style={styles.container}>
@@ -32,41 +32,22 @@ export default class App extends Component<Props> {
   // }
 
   state = {
-    placeName: '',
     places: [],
   }
 
-  placeNameChangedHandler = (event) => {
-    this.setState({
-      placeName: event
-    });
-  }
-
-  placeSubmitHandler = () => {
-    if (this.state.placeName.trim() === "") {
-      return;
-    }
-
+  placeAddedHandler = placeName => {
     this.setState(prevState => {
       return {
-        places: prevState.places.concat(this.state.placeName)
+        places: prevState.places.concat(placeName)
       }
     });
   }
 
   render () {
-    const placesOutput = this.state.places.map((place, index) => (
-      <ListItem key={index} text={place}/>
-    ));
     return (
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <TextInput style={styles.textInput} onChangeText={this.placeNameChangedHandler} />
-          <Button style={styles.addButton} title='Add' onPress={this.placeSubmitHandler}/>
-        </View>
-        <View style={styles.listContainer}>
-          {placesOutput}
-        </View>
+        <PlaceInput onPlaceAdded={this.placeAddedHandler} />
+        <PlaceList style={styles.placeList} placeList={this.state.places} />
       </View>
     )
   }
@@ -90,22 +71,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  textInput: {
-    width: '70%',
-    borderWidth: 1,
-    borderColor: 'black',
-    margin: 5
-  },
-  addButton: {
-    width: '30%'
-  },
-  listContainer: {
-    width: '100%',
-    margin: 5,
+  placeList: {
+    justifyContent: 'center',
   }
 });

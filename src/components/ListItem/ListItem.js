@@ -13,7 +13,7 @@ export default class ListItem extends Component {
 
 const styles = StyleSheet.create({
   listItem: {
-    width: '100%',
     backgroundColor: '#eee',
+    margin: 5,
   }
 });
