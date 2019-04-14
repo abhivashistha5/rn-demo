@@ -1,12 +1,14 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class ListItem extends Component {
   render() {
     return (
-      <View style={styles.listItem}>
-        <Text>{this.props.text}</Text>
-      </View>
+      <TouchableOpacity onPress={this.props.onItemPressed}>
+        <View style={styles.listItem}>
+          <Text>{this.props.text}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }

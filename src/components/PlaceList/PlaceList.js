@@ -10,7 +10,7 @@ export default class PlaceList extends Component {
     
     if (this.props.placeList && Array.isArray(this.props.placeList)) {
       placesOutput = this.props.placeList.map((place, index) => (
-        <ListItem key={index} text={place}/>
+        <ListItem key={index} text={place} onItemPressed={() => { this.props.onListItemPressed(index); }}/>
       ));
     }
     
