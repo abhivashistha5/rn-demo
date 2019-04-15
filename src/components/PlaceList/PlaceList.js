@@ -28,7 +28,7 @@ export default class PlaceList extends Component {
         data={this.props.placeList}
         renderItem={(data) => {
           return (
-            <ListItem text={data.item.place} onItemPressed={() => { this.props.onListItemPressed(data.item); }}/>
+            <ListItem placeImage={data.item.placeImage} text={data.item.place} onItemPressed={() => { this.props.onListItemPressed(data.item); }}/>
           );
         }}
       />

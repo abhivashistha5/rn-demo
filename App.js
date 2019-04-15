@@ -13,6 +13,8 @@ import {Platform, StyleSheet, View } from 'react-native';
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
 
+import placeImage from './src/assets/snow_covered.jpg';
+
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -41,6 +43,7 @@ export default class App extends Component {
         places: prevState.places.concat({
           key: Math.random().toString(),
           place: placeName,
+          placeImage: placeImage,
         })
       }
     });
