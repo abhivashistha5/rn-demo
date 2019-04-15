@@ -6,7 +6,7 @@ export default class ListItem extends Component {
     return (
       <TouchableOpacity onPress={this.props.onItemPressed}>
         <View style={styles.listItem}>
-          <Image style={styles.image} source={this.props.placeImage}/>
+          <Image resizeMode='contain' style={styles.image} source={{uri: this.props.placeImage}}/>
           <Text style={styles.text}>{this.props.text}</Text>
         </View>
       </TouchableOpacity>
@@ -16,7 +16,7 @@ export default class ListItem extends Component {
 
 const styles = StyleSheet.create({
   listItem: {
-    backgroundColor: '#eee',
+    backgroundColor: '#8e2f55',
     margin: 5,
     height: 40,
     alignItems: 'center',
