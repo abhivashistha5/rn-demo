@@ -12,6 +12,7 @@ import {Platform, StyleSheet, View } from 'react-native';
 
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
+import PlaceDetail from './src/components/PlaceDetail/PlaceDetail';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -33,6 +34,7 @@ export default class App extends Component {
 
   state = {
     places: [],
+    selectedPlace: null,
   }
 
   placeAddedHandler = placeName => {
@@ -47,19 +49,35 @@ export default class App extends Component {
     });
   }
 
-  placeDeleteHandler = item => {
+  placeDeleteHandler = () => {
     this.setState(prevState => {
       return {
-        places: prevState.places.filter((place, i) => item.key !== place.key)
+        places: prevState.places.filter((place, i) => place.key !== prevState.selectedPlace.key),
+        selectedPlace: null,
       }
     });
+  }
+
+  placeSelectedHandler = item => {
+    this.setState(prevState => {
+      return {
+        selectedPlace: prevState.places.find(place => item.key === place.key)
+      }
+    });
+  }
+
+  modalCloseHandler = () => {
+    this.setState({
+      selectedPlace: null,
+    })
   }
 
   render () {
     return (
       <View style={styles.container}>
+        <PlaceDetail selectedPlace={this.state.selectedPlace} onPlaceDeleted={this.placeDeleteHandler} onModalClose={this.modalCloseHandler}/>
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
-        <PlaceList style={styles.placeList} placeList={this.state.places} onListItemPressed={this.placeDeleteHandler}/>
+        <PlaceList style={styles.placeList} placeList={this.state.places} onListItemPressed={this.placeSelectedHandler}/>
       </View>
     )
   }
